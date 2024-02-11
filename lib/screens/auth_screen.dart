@@ -23,19 +23,17 @@ class _AuthScreenState extends State<AuthScreen> {
     _form.currentState!.save();
 
     try {
-      final userCredentials = await _firebase.signInWithEmailAndPassword(
+      await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPassword);
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'user-not-found') {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(error.message ?? 'Authentication Failed'),
-              duration: const Duration(seconds: 3),
-            ),
-          );
-        }
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error.message ?? 'Authentication Failed'),
+            duration: const Duration(seconds: 3),
+          ),
+        );
       }
     }
   }
@@ -81,6 +79,9 @@ class _AuthScreenState extends State<AuthScreen> {
                             }
                             if (!value.contains('@')) {
                               return 'Invalid e-mail address';
+                            }
+                            if (!value.contains('@iiitu.ac.in')) {
+                              return 'Enter IIITU\'s email address';
                             }
                             return null;
                           },
