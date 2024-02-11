@@ -11,6 +11,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  var _isAuthenticating = false;
   var _enteredEmail = '';
   var _enteredPassword = '';
   final _form = GlobalKey<FormState>();
@@ -23,6 +24,9 @@ class _AuthScreenState extends State<AuthScreen> {
     _form.currentState!.save();
 
     try {
+      setState(() {
+        _isAuthenticating = true;
+      });
       await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPassword);
     } on FirebaseAuthException catch (error) {
@@ -35,6 +39,9 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         );
       }
+      setState(() {
+        _isAuthenticating = false;
+      });
     }
   }
 
@@ -110,10 +117,12 @@ class _AuthScreenState extends State<AuthScreen> {
                           onPressed: _login,
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.amber.withOpacity(0.4)),
-                          child: const Text(
-                            "Login",
-                            // style: TextStyle(color: Colors.white),
-                          ),
+                          child: _isAuthenticating
+                              ? const CircularProgressIndicator()
+                              : const Text(
+                                  "Login",
+                                  // style: TextStyle(color: Colors.white),
+                                ),
                         ),
                       ],
                     ),
