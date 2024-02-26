@@ -30,8 +30,11 @@ class _AuthScreenState extends State<AuthScreen> {
       await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPassword);
     } on FirebaseAuthException catch (error) {
+      // if (!context.mounted) return;
       if (context.mounted) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).clearSnackBars();
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(error.message ?? 'Authentication Failed'),

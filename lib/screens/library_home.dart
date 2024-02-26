@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+final _firebase = FirebaseAuth.instance;
 
 class LibraryHome extends StatefulWidget {
   const LibraryHome({super.key});
@@ -14,6 +17,34 @@ class _LibraryHomeState extends State<LibraryHome> {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
       body: const Text("Home page"),
+      drawer: Drawer(
+        child: ListView(
+          // mainAxisSize: MainAxisSize.max,
+          children: [
+            // DrawerHeader(
+            //   decoration: BoxDecoration(
+            //     color: Theme.of(context).colorScheme.surface,
+            //   ),
+            //   child: Image.asset('assets/images/Iiit-una-logo.png'),
+            // ),
+            const SizedBox(height: 30),
+            ListTile(
+              leading: const Icon(Icons.perm_contact_calendar),
+              title: const Text('Contact'),
+              onTap: () {
+                // _firebase.signOut();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () {
+                _firebase.signOut();
+              },
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {
@@ -27,9 +58,13 @@ class _LibraryHomeState extends State<LibraryHome> {
             label: 'ebooks',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.contact_page_outlined),
-            label: 'Contact',
-          )
+            icon: Icon(Icons.local_library_sharp),
+            label: 'Library',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.supervised_user_circle),
+            label: 'My Profile',
+          ),
         ],
       ),
     );
