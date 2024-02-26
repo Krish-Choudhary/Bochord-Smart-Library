@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/widgets/contact.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -32,7 +33,9 @@ class _LibraryHomeState extends State<LibraryHome> {
               leading: const Icon(Icons.perm_contact_calendar),
               title: const Text('Contact'),
               onTap: () {
-                // _firebase.signOut();
+                Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                  return const Contact();
+                }));
               },
             ),
             ListTile(
