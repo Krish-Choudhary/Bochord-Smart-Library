@@ -37,6 +37,7 @@ class _LibraryHomeState extends State<LibraryHome> {
               leading: const Icon(Icons.perm_contact_calendar),
               title: const Text('Contact'),
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
                   return const Contact();
                 }));
