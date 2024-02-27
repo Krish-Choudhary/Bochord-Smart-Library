@@ -16,25 +16,28 @@ class Contact extends StatelessWidget {
           Center(
             child: CircleAvatar(
               radius: 100,
-              backgroundImage: NetworkImage(
-                  'https://iiitu.ac.in/wp-content/uploads/2022/01/mr_ankushkapoor.jpg'),
+              backgroundImage: AssetImage('assets/images/IMG_8341 crop.JPG'),
             ),
           ),
-          // SizedBox(height: 10),
+          SizedBox(height: 20),
           // Center(child: Text("Mr. Ankush Kapoor",style: TextStyle(fontSize: 18),)),
           ListTile(
-            title: Text('Name: Mr. Ankush Kapoor'),
+            visualDensity: VisualDensity(vertical: -3),
+            title: Text('Name: Krish Choudhary'),
           ),
           ListTile(
-            title: Text('Designation: Librarian'),
+            visualDensity: VisualDensity(vertical: -3),
+            title: Text('Designation: Developer'),
           ),
           ListTile(
+            visualDensity: VisualDensity(vertical: -3),
             leading: Icon(Icons.phone),
-            title: Text('+919418953816'),
+            title: Text('+918930901025'),
           ),
           ListTile(
+            visualDensity: VisualDensity(vertical: -3),
             leading: Icon(Icons.email),
-            title: Text('ankush@iiitu.ac.in'),
+            title: Text('22224@iiitu.ac.in'),
           ),
         ],
       ),
