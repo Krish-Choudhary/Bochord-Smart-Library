@@ -16,7 +16,11 @@ class _LibraryHomeState extends State<LibraryHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: const Text('Home'),
+      ),
       body: const Text("Home page"),
       drawer: Drawer(
         child: ListView(
