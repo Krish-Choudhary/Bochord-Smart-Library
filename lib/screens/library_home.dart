@@ -13,7 +13,7 @@ class LibraryHome extends StatefulWidget {
 }
 
 class _LibraryHomeState extends State<LibraryHome> {
-  var selectedPageIndex = 0;
+  int selectedPageIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,19 +22,20 @@ class _LibraryHomeState extends State<LibraryHome> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text('Home'),
       ),
-      body: const Column(
+      body: Column(
         children: [
-          SizedBox(height: 12),
-          Row(
-            children: [
-              BookCard(
-                  bookName: 'The Laws of Human Nature',
-                  coverPage: 'assets/images/TheLawsOfHumanNature-1.png'),
-              BookCard(
-                  bookName: 'Cracking The Coding Interview',
-                  coverPage: 'assets/images/CrackingTheCodingInterview.png'),
-            ],
-          )
+          const SizedBox(height: 12),
+          if (selectedPageIndex == 0)
+            const Row(
+              children: [
+                BookCard(
+                    bookName: 'The Laws of Human Nature',
+                    coverPage: 'assets/images/TheLawsOfHumanNature-1.png'),
+                BookCard(
+                    bookName: 'Cracking The Coding Interview',
+                    coverPage: 'assets/images/CrackingTheCodingInterview.png'),
+              ],
+            )
         ],
       ),
       drawer: Drawer(
