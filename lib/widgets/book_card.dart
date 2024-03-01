@@ -9,8 +9,20 @@ class BookCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        
+      onTap: () {
+        showModalBottomSheet(
+            context: context,
+            builder: (ctx) {
+              return const SizedBox(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(16),
+                    child: Text('This is the Modal Bottom Sheet.'),
+                  ),
+                ),
+              );
+            });
       },
       child: Stack(children: [
         Image.asset(
