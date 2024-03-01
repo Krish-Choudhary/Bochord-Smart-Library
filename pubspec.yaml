@@ -65,6 +65,8 @@ flutter:
   assets:
     - assets\images\Iiit-una-logo.png
     - assets\images\IMG_8341 crop.JPG
+    - assets\images\TheLawsOfHumanNature-1.png
+    - assets\images\CrackingTheCodingInterview.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
