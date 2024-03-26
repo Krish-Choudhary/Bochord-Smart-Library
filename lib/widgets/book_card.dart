@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/widgets/book_details.dart';
 
 class BookCard extends StatelessWidget {
-  const BookCard({super.key, required this.bookName, required this.coverPage});
+  const BookCard({
+    super.key,
+    required this.bookName,
+    required this.coverPage,
+  });
 
   final String coverPage;
   final String bookName;
@@ -13,14 +18,9 @@ class BookCard extends StatelessWidget {
         showModalBottomSheet(
             context: context,
             builder: (ctx) {
-              return const SizedBox(
+              return SizedBox(
                 height: double.infinity,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('This is the Modal Bottom Sheet.'),
-                  ),
-                ),
+                child: BookDetails(bookName: bookName, coverPage: coverPage),
               );
             });
       },
