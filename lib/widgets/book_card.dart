@@ -8,7 +8,7 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         showModalBottomSheet(
             context: context,
@@ -27,12 +27,13 @@ class BookCard extends StatelessWidget {
       child: Stack(children: [
         Image.asset(
           coverPage,
-          width: 196,
+          width: double.infinity,
+          fit: BoxFit.fitWidth,
         ),
         Positioned(
-          left: 9,
+          left: 0,
           bottom: 0,
-          right: 10,
+          right: 0,
           child: Container(
             height: 35,
             color: Colors.black54,

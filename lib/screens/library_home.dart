@@ -26,15 +26,21 @@ class _LibraryHomeState extends State<LibraryHome> {
         children: [
           const SizedBox(height: 12),
           if (selectedPageIndex == 0)
-            const Row(
-              children: [
-                BookCard(
-                    bookName: 'The Laws of Human Nature',
-                    coverPage: 'assets/images/TheLawsOfHumanNature-1.png'),
-                BookCard(
-                    bookName: 'Cracking The Coding Interview',
-                    coverPage: 'assets/images/CrackingTheCodingInterview.png'),
-              ],
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 0.7,
+                crossAxisSpacing: 10,
+                children: const [
+                  BookCard(
+                      bookName: 'The Laws of Human Nature',
+                      coverPage: 'assets/images/TheLawsOfHumanNature-1.png'),
+                  BookCard(
+                      bookName: 'Cracking The Coding Interview',
+                      coverPage:
+                          'assets/images/CrackingTheCodingInterview.png'),
+                ],
+              ),
             )
         ],
       ),
