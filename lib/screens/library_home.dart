@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/screens/contact.dart';
-import 'package:library_app/widgets/book_card.dart';
+import 'package:library_app/widgets/home_screen.dart';
+// import 'package:library_app/widgets/book_card.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -22,27 +23,13 @@ class _LibraryHomeState extends State<LibraryHome> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: const Text('Home'),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 12),
-          if (selectedPageIndex == 0)
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: 0.7,
-                crossAxisSpacing: 10,
-                children: const [
-                  BookCard(
-                      bookName: 'The Laws of Human Nature',
-                      coverPage: 'assets/images/TheLawsOfHumanNature-1.png'),
-                  BookCard(
-                      bookName: 'Cracking The Coding Interview',
-                      coverPage:
-                          'assets/images/CrackingTheCodingInterview.png'),
-                ],
-              ),
-            )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            if (selectedPageIndex == 0) const HomeScreen(),
+          ],
+        ),
       ),
       drawer: Drawer(
         child: ListView(

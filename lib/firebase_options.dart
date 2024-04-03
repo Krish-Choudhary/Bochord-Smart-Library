@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,11 +46,22 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCWocfpyx647ogpTp51f_ZQUzBhr6WBlSU',
+    appId: '1:19198108932:web:447924d1aecc8b417a1c51',
+    messagingSenderId: '19198108932',
+    projectId: 'library-app-2485f',
+    authDomain: 'library-app-2485f.firebaseapp.com',
+    databaseURL: 'https://library-app-2485f-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'library-app-2485f.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCngOy8kGRIKFIrbzo7Z2jDcSdNLDKMQ8k',
     appId: '1:19198108932:android:498a3f4651811e887a1c51',
     messagingSenderId: '19198108932',
     projectId: 'library-app-2485f',
+    databaseURL: 'https://library-app-2485f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'library-app-2485f.appspot.com',
   );
 
@@ -62,6 +70,7 @@ class DefaultFirebaseOptions {
     appId: '1:19198108932:ios:ab7fed2eb933d3877a1c51',
     messagingSenderId: '19198108932',
     projectId: 'library-app-2485f',
+    databaseURL: 'https://library-app-2485f-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'library-app-2485f.appspot.com',
     iosBundleId: 'com.example.libraryApp',
   );
