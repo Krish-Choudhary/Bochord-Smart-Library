@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:library_app/screens/bookdisplay.dart';
 
 class BookLoading extends StatefulWidget {
-  var c;
+  dynamic c;
   BookLoading({
     super.key,
     required this.c,
@@ -17,7 +17,7 @@ class BookLoading extends StatefulWidget {
 }
 
 class _BookLoadingState extends State<BookLoading> {
-  var c2;
+  dynamic c2;
 
   @override
   void initState() {
@@ -34,7 +34,11 @@ class _BookLoadingState extends State<BookLoading> {
         return BookDisplay(d: c2);
       }));
     } catch (e) {
-      print("error");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Something went wrong: $e')));
+      }
     }
   }
 

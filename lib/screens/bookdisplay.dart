@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, deprecated_member_use, use_full_hex_values_for_flutter_colors, must_be_immutable
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, deprecated_member_use, use_full_hex_values_for_flutter_colors, must_be_immutable, use_build_context_synchronously
 
 import 'dart:io' as i;
 import 'package:dio/dio.dart';
@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class BookDisplay extends StatefulWidget {
   const BookDisplay({required this.d, super.key});
-  final d;
+  final dynamic d;
 
   @override
   State<BookDisplay> createState() => _BookDisplayState();
@@ -38,7 +38,6 @@ class _BookDisplayState extends State<BookDisplay> {
       url = widget.d["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
     } catch (e) {
       url = widget.d["items"][1]["volumeInfo"]["imageLinks"]["thumbnail"];
-          ;
     }
   }
 
@@ -108,9 +107,14 @@ class _BookDisplayState extends State<BookDisplay> {
   Future openfile(var url, var title) async {
     final file = await downloadfile(url, title!);
     if (file == null) {
-      print("null");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('File NULL')));
+      }
       return;
     }
+    // ignore: avoid_print
     print(file.path);
     OpenFile.open(file.path);
   }
@@ -120,14 +124,14 @@ class _BookDisplayState extends State<BookDisplay> {
       var appstorage = await getApplicationDocumentsDirectory();
       // ignore: unused_local_variable
       final file = i.File('${appstorage.path}/filename');
-      final Response = await Dio().get(url,
+      final response = await Dio().get(url,
           options: Options(
             responseType: ResponseType.bytes,
             followRedirects: false,
             // receiveTimeout: 0,
           ));
       final raf = file.openSync(mode: i.FileMode.write);
-      raf.writeFromSync(Response.data);
+      raf.writeFromSync(response.data);
       await raf.close();
 
       return file;
@@ -200,7 +204,11 @@ class _BookDisplayState extends State<BookDisplay> {
                             await launchUrl(Uri.parse(url));
                           }
                         } catch (e) {
-                          print("Not available");
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text('Something went wrong: $e')));
+                          }
                         }
                       },
                       child: Icon(
