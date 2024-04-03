@@ -32,6 +32,7 @@ class _BookDisplayState extends State<BookDisplay> {
     getpubdate();
     geturl();
     getrating();
+    getlang();
   }
 
   geturl() {
@@ -48,6 +49,7 @@ class _BookDisplayState extends State<BookDisplay> {
         lang = widget.d["items"][0]["volumeInfo"]["language"]
             .toString()
             .toUpperCase();
+        lang = lang == 'EN' ? 'English' : lang;
       });
     } catch (e) {
       setState(() {
@@ -287,7 +289,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                   height: 5,
                                 ),
                                 Text(
-                                  rating == 'null' ? rating : 'Not Available',
+                                  rating == 'null' ? 'Not available' : rating,
                                   style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           fontWeight: FontWeight.bold,
