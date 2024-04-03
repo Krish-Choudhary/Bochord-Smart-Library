@@ -147,11 +147,14 @@ class _BookDisplayState extends State<BookDisplay> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25.0),
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xfff012ac0).withOpacity(0.8),
+          ),
           onPressed: () async {
             await launchUrl(
-                Uri.parse(widget.d["items"][0]["accessInfo"]["webReaderLink"]));
+                Uri.parse(widget.d["items"][0]["volumeInfo"]["previewLink"]));
           },
-          // splashColor: Colors.grey,
+          // splashColor: previewLink,
           // color: Colors.black,
           child: Text(
             "READ BOOK",
