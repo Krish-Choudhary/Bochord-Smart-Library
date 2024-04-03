@@ -11,25 +11,44 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<dynamic> c1;
-  late Future<dynamic> c2;
-  late Future<dynamic> c3;
-  late Future<dynamic> c4;
+  late Future<dynamic> adventureBody;
+  late Future<dynamic> horrorBody;
+  late Future<dynamic> romanceBody;
+  late Future<dynamic> fantasyBody;
+  late Future<dynamic> fictionBody;
+  late Future<dynamic> scienceBody;
+  late Future<dynamic> healthBody;
 
   void getcategorydata() async {
-    final u1 = Uri.parse(
+    final adventureUrl = Uri.parse(
         "https://www.googleapis.com/books/v1/volumes?q=subject:adventure&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final u2 = Uri.parse(
+    final fantasyUrl = Uri.parse(
         "https://www.googleapis.com/books/v1/volumes?q=subject:fantasy&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final u3 = Uri.parse(
+    final horrorUrl = Uri.parse(
         "https://www.googleapis.com/books/v1/volumes?q=subject:horror&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final u4 = Uri.parse(
+    final romanceUrl = Uri.parse(
         "https://www.googleapis.com/books/v1/volumes?q=subject:romance&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
+    final fictionUrl = Uri.parse(
+        "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
+    final scienceUrl = Uri.parse(
+        "https://www.googleapis.com/books/v1/volumes?q=subject:science&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
+        final healthUrl = Uri.parse(
+        "https://www.googleapis.com/books/v1/volumes?q=subject:health&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
 
-    c1 = http.get(u1).then((response) => json.decode(response.body));
-    c2 = http.get(u2).then((response) => json.decode(response.body));
-    c3 = http.get(u3).then((response) => json.decode(response.body));
-    c4 = http.get(u4).then((response) => json.decode(response.body));
+    adventureBody =
+        http.get(adventureUrl).then((response) => json.decode(response.body));
+    fantasyBody =
+        http.get(fantasyUrl).then((response) => json.decode(response.body));
+    horrorBody =
+        http.get(horrorUrl).then((response) => json.decode(response.body));
+    romanceBody =
+        http.get(romanceUrl).then((response) => json.decode(response.body));
+    fictionBody =
+        http.get(fictionUrl).then((response) => json.decode(response.body));
+    scienceBody =
+        http.get(scienceUrl).then((response) => json.decode(response.body));
+        healthBody =
+        http.get(healthUrl).then((response) => json.decode(response.body));
   }
 
   @override
@@ -104,10 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          CategoryView(apiResponse: c1, title: 'Adventure'),
-          CategoryView(apiResponse: c2, title: 'Fantasy'),
-          CategoryView(apiResponse: c3, title: 'Horror'),
-          CategoryView(apiResponse: c4, title: 'Romance'),
+          CategoryView(apiResponse: scienceBody, title: 'Science'),
+          CategoryView(apiResponse: fictionBody, title: 'Fiction'),
+          CategoryView(apiResponse: adventureBody, title: 'Adventure'),
+          CategoryView(apiResponse: horrorBody, title: 'Horror'),
+          CategoryView(apiResponse: fantasyBody, title: 'Fantasy'),
+          CategoryView(apiResponse: romanceBody, title: 'Romance'),
+          CategoryView(apiResponse: healthBody, title: 'Health'),
         ],
       ),
     );
