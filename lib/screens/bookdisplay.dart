@@ -31,6 +31,7 @@ class _BookDisplayState extends State<BookDisplay> {
     getdesc();
     getpubdate();
     geturl();
+    getrating();
   }
 
   geturl() {
@@ -96,6 +97,7 @@ class _BookDisplayState extends State<BookDisplay> {
     try {
       setState(() {
         rating = widget.d["items"][0]["volumeInfo"]["averageRating"].toString();
+        print(rating);
       });
     } catch (e) {
       setState(() {
@@ -285,7 +287,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                   height: 5,
                                 ),
                                 Text(
-                                  rating,
+                                  rating == 'null' ? rating : 'Not Available',
                                   style: GoogleFonts.lato(
                                       textStyle: TextStyle(
                                           fontWeight: FontWeight.bold,
