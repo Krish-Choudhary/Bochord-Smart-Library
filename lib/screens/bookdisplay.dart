@@ -99,7 +99,6 @@ class _BookDisplayState extends State<BookDisplay> {
     try {
       setState(() {
         rating = widget.d["items"][0]["volumeInfo"]["averageRating"].toString();
-        print(rating);
       });
     } catch (e) {
       setState(() {
