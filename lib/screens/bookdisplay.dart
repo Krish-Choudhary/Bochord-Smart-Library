@@ -176,7 +176,7 @@ class _BookDisplayState extends State<BookDisplay> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         opacity: 0.4,
-                        image: AssetImage("assets/overlay.png"),
+                        image: AssetImage("assets/images/overlay.png"),
                         fit: BoxFit.cover)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,22 +231,25 @@ class _BookDisplayState extends State<BookDisplay> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           opacity: 0.4,
-                          image: AssetImage("assets/overlay.png"),
+                          image: AssetImage("assets/images/overlay.png"),
                           fit: BoxFit.cover)),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 230,
-                          width: 150,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  url,
-                                ),
-                                fit: BoxFit.cover),
+                        Hero(
+                          tag: widget.d["items"][0]["id"],
+                          child: Container(
+                            height: 230,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                    url,
+                                  ),
+                                  fit: BoxFit.cover),
+                            ),
                           ),
                         ),
                         SizedBox(

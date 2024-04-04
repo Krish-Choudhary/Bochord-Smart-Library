@@ -43,22 +43,26 @@ class Category extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    Container(
-                      height: 230,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 8,
-                              offset: const Offset(2, 2))
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: NetworkImage(apiResponse["items"][index + 1]
-                                ["volumeInfo"]["imageLinks"]["thumbnail"]),
-                            fit: BoxFit.cover),
+                    Hero(
+                      tag: apiResponse["items"][index + 1]["id"],
+                      child: Container(
+                        height: 230,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 3,
+                                blurRadius: 8,
+                                offset: const Offset(2, 2))
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: NetworkImage(apiResponse["items"]
+                                      [index + 1]["volumeInfo"]["imageLinks"]
+                                  ["thumbnail"]),
+                              fit: BoxFit.cover),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
