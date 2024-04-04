@@ -183,9 +183,7 @@ class _BookDisplayState extends State<BookDisplay> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context)
-                          ..pop()
-                          ..pop();
+                        Navigator.of(context).pop();
                       },
                       child: Icon(
                         Icons.arrow_back,
