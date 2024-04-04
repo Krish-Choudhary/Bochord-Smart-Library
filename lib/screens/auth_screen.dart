@@ -30,7 +30,6 @@ class _AuthScreenState extends State<AuthScreen> {
       await _firebase.signInWithEmailAndPassword(
           email: _enteredEmail, password: _enteredPassword);
     } on FirebaseAuthException catch (error) {
-      // if (!context.mounted) return;
       if (context.mounted) {
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -68,7 +67,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Image.asset('assets/images/Iiit-una-logo.png'),
               ),
               Card(
-                // color: Color.fromARGB(255, 177, 156, 91),
                 margin: const EdgeInsets.all(20),
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.only(left: 15),
@@ -124,9 +122,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               ? const CircularProgressIndicator()
                               : const Text(
                                   "Login",
-                                  // style: TextStyle(color: Colors.white),
                                 ),
                         ),
+                        const SizedBox(height: 10),
                       ],
                     ),
                   ),
