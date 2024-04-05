@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/screens/contact.dart';
 import 'package:library_app/widgets/home_screen.dart';
-// import 'package:library_app/widgets/book_card.dart';
 
 final _firebase = FirebaseAuth.instance;
 

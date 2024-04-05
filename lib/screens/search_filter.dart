@@ -50,167 +50,165 @@ class _SearchFilterState extends State<SearchFilter> {
 
   @override
   Widget build(BuildContext context) {
-    return (SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          title: Text(
-            "RESULT",
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
+    return (Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 1, 42, 192),
+        title: Text(
+          "RESULT",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
-        body: ListView.builder(
-            itemCount: widget.d["items"].length - 1,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-                child: (Container(
-                  padding: EdgeInsets.all(10),
-                  height: 270,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 1, 42, 192),
-                      image: DecorationImage(
-                          opacity: 0.4,
-                          image: AssetImage("assets/images/overlay.png"),
-                          fit: BoxFit.cover)),
-                  child: Row(
-                    children: [
-                      Hero(
-                        tag: widget.d["items"][index + 1]["id"],
-                        child: Container(
-                          height: 210,
-                          width: 140,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                  image: NetworkImage(widget.d["items"]
-                                          [index + 1]["volumeInfo"]
-                                      ["imageLinks"]["thumbnail"]),
-                                  fit: BoxFit.cover)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Flexible(
-                            child: Text(
-                              (widget.d["items"][index + 1]["volumeInfo"]
-                                              ["title"])
-                                          .length >
-                                      20
-                                  ? st(widget.d["items"][index + 1]
-                                      ["volumeInfo"]["title"])
-                                  : widget.d["items"][index + 1]["volumeInfo"]
-                                      ["title"],
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Flexible(
-                            child: Text(
-                              (widget.d["items"][index + 1]["volumeInfo"]
-                                              ["authors"][0])
-                                          .length >
-                                      20
-                                  ? "by " +
-                                      st(widget.d["items"][index + 1]
-                                          ["volumeInfo"]["authors"][0])
-                                  : "by " +
-                                      widget.d["items"][index + 1]["volumeInfo"]
-                                          ["authors"][0],
-                              overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                      color: Colors.grey[400],
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "Page Count:- " +
-                                (widget.d["items"][index + 1]["volumeInfo"]
-                                        ["pageCount"]
-                                    .toString()),
-                            style: GoogleFonts.lato(
-                                textStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            (widget.d["items"][index + 1]["volumeInfo"]
-                                        ["averageRating"]) ==
-                                    null
-                                ? "⭐ Not available"
-                                : "⭐ ${widget.d["items"][index + 1]["volumeInfo"]["averageRating"]}",
-                            style: GoogleFonts.lato(
-                                textStyle: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              getisbn(index);
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return BookLoading(c: isbn);
-                              }));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                            ),
-                            // color: Colors.black,
-                            child: Text(
-                              "DETAILS",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 1, 42, 192),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                )),
-              );
-            }),
       ),
+      body: ListView.builder(
+          itemCount: widget.d["items"].length - 1,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+              child: (Container(
+                padding: EdgeInsets.all(10),
+                height: 270,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromARGB(255, 1, 42, 192),
+                    image: DecorationImage(
+                        opacity: 0.4,
+                        image: AssetImage("assets/images/overlay.png"),
+                        fit: BoxFit.cover)),
+                child: Row(
+                  children: [
+                    Hero(
+                      tag: widget.d["items"][index + 1]["id"],
+                      child: Container(
+                        height: 210,
+                        width: 140,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage(widget.d["items"]
+                                        [index + 1]["volumeInfo"]
+                                    ["imageLinks"]["thumbnail"]),
+                                fit: BoxFit.cover)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Flexible(
+                          child: Text(
+                            (widget.d["items"][index + 1]["volumeInfo"]
+                                            ["title"])
+                                        .length >
+                                    20
+                                ? st(widget.d["items"][index + 1]
+                                    ["volumeInfo"]["title"])
+                                : widget.d["items"][index + 1]["volumeInfo"]
+                                    ["title"],
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Flexible(
+                          child: Text(
+                            (widget.d["items"][index + 1]["volumeInfo"]
+                                            ["authors"][0])
+                                        .length >
+                                    20
+                                ? "by " +
+                                    st(widget.d["items"][index + 1]
+                                        ["volumeInfo"]["authors"][0])
+                                : "by " +
+                                    widget.d["items"][index + 1]["volumeInfo"]
+                                        ["authors"][0],
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Page Count:- " +
+                              (widget.d["items"][index + 1]["volumeInfo"]
+                                      ["pageCount"]
+                                  .toString()),
+                          style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          (widget.d["items"][index + 1]["volumeInfo"]
+                                      ["averageRating"]) ==
+                                  null
+                              ? "⭐ Not available"
+                              : "⭐ ${widget.d["items"][index + 1]["volumeInfo"]["averageRating"]}",
+                          style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            getisbn(index);
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return BookLoading(c: isbn);
+                            }));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                          // color: Colors.black,
+                          child: Text(
+                            "DETAILS",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 1, 42, 192),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              )),
+            );
+          }),
     ));
   }
 }
