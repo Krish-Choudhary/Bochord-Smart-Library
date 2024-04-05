@@ -397,6 +397,7 @@ class _BookDisplayState extends State<BookDisplay> {
                             ),
                             Text(
                               desc,
+                              textAlign: TextAlign.justify,
                               style: GoogleFonts.lato(
                                   color: Colors.grey[600], fontSize: 15),
                             )
