@@ -78,10 +78,10 @@ class _LibraryHomeState extends State<LibraryHome> {
             icon: Icon(Icons.local_library_sharp),
             label: 'Library',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.supervised_user_circle),
-            label: 'My Profile',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.supervised_user_circle),
+          //   label: 'My Profile',
+          // ),
         ],
       ),
     );
