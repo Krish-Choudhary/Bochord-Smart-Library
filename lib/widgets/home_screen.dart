@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:library_app/widgets/category_view.dart';
+import 'package:library_app/screens/search_loading.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -104,13 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    // return searchloading(text: t.text);
-                    // }));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                    return SearchLoading(text: t.text);
+                    }));
                   },
-                  // splashColor: Color(0xfff012AC0),
-                  // color: Colors.white,
                   child: const Text(
                     "SEARCH",
                     style: TextStyle(fontWeight: FontWeight.bold),

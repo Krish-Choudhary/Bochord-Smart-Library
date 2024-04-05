@@ -157,8 +157,6 @@ class _BookDisplayState extends State<BookDisplay> {
             await launchUrl(
                 Uri.parse(widget.d["items"][0]["volumeInfo"]["previewLink"]));
           },
-          // splashColor: previewLink,
-          // color: Colors.black,
           child: Text(
             "READ BOOK",
             style: TextStyle(color: Colors.white),
