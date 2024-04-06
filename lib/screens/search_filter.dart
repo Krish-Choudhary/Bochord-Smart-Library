@@ -34,7 +34,7 @@ class _SearchFilterState extends State<SearchFilter> {
     int count = 0;
     String ans = "";
     for (int i = 0; i < s.length; i++) {
-      if (count == 20) {
+      if (count == 15) {
         break;
       }
       count++;
@@ -97,9 +97,8 @@ class _SearchFilterState extends State<SearchFilter> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
-                                image: NetworkImage(widget.d["items"]
-                                        [index + 1]["volumeInfo"]
-                                    ["imageLinks"]["thumbnail"]),
+                                image: NetworkImage(widget.d["items"][index + 1]
+                                    ["volumeInfo"]["imageLinks"]["thumbnail"]),
                                 fit: BoxFit.cover)),
                       ),
                     ),
@@ -118,8 +117,8 @@ class _SearchFilterState extends State<SearchFilter> {
                                             ["title"])
                                         .length >
                                     20
-                                ? st(widget.d["items"][index + 1]
-                                    ["volumeInfo"]["title"])
+                                ? st(widget.d["items"][index + 1]["volumeInfo"]
+                                    ["title"])
                                 : widget.d["items"][index + 1]["volumeInfo"]
                                     ["title"],
                             overflow: TextOverflow.ellipsis,
@@ -136,7 +135,7 @@ class _SearchFilterState extends State<SearchFilter> {
                             (widget.d["items"][index + 1]["volumeInfo"]
                                             ["authors"][0])
                                         .length >
-                                    20
+                                    18
                                 ? "by " +
                                     st(widget.d["items"][index + 1]
                                         ["volumeInfo"]["authors"][0])
@@ -186,10 +185,12 @@ class _SearchFilterState extends State<SearchFilter> {
                         ElevatedButton(
                           onPressed: () {
                             getisbn(index);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return BookLoading(c: isbn);
-                            }));
+                            if (isbn != null) {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return BookLoading(c: isbn);
+                              }));
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
