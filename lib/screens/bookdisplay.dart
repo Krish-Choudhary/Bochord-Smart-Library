@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, deprecated_member_use, use_full_hex_values_for_flutter_colors, must_be_immutable, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:io' as i;
 import 'package:dio/dio.dart';
@@ -113,7 +113,7 @@ class _BookDisplayState extends State<BookDisplay> {
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('File NULL')));
+            .showSnackBar(const SnackBar(content: Text('File NULL')));
       }
       return;
     }
@@ -146,18 +146,19 @@ class _BookDisplayState extends State<BookDisplay> {
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
-      backgroundColor: Color(0xfff012ac0),
+      backgroundColor: const Color.fromARGB(255, 1, 42, 192),
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25.0),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xfff012ac0).withOpacity(0.8),
+            backgroundColor:
+                const Color.fromARGB(255, 1, 42, 192).withOpacity(0.8),
           ),
           onPressed: () async {
             await launchUrl(
                 Uri.parse(widget.d["items"][0]["volumeInfo"]["previewLink"]));
           },
-          child: Text(
+          child: const Text(
             "READ BOOK",
             style: TextStyle(color: Colors.white),
           ),
@@ -171,7 +172,7 @@ class _BookDisplayState extends State<BookDisplay> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         opacity: 0.4,
                         image: AssetImage("assets/images/overlay.png"),
@@ -183,7 +184,7 @@ class _BookDisplayState extends State<BookDisplay> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
                         color: Colors.white,
                         size: 30,
@@ -192,8 +193,8 @@ class _BookDisplayState extends State<BookDisplay> {
                     Text(
                       "DETAILS",
                       style: GoogleFonts.lato(
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 16)),
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 16)),
                     ),
                     GestureDetector(
                       onTap: () async {
@@ -213,7 +214,7 @@ class _BookDisplayState extends State<BookDisplay> {
                           }
                         }
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.download_outlined,
                         color: Colors.white,
                         size: 30,
@@ -226,7 +227,7 @@ class _BookDisplayState extends State<BookDisplay> {
             Expanded(
                 flex: 3,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           opacity: 0.4,
                           image: AssetImage("assets/images/overlay.png"),
@@ -250,25 +251,24 @@ class _BookDisplayState extends State<BookDisplay> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
                           widget.d["items"][0]["volumeInfo"]["title"],
                           style: GoogleFonts.lato(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   fontSize: 23,
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
                         ),
                         Text(
-                          "by " +
-                              widget.d["items"][0]["volumeInfo"]["authors"][0],
+                          "by ${widget.d["items"][0]["volumeInfo"]["authors"][0]}",
                           style: GoogleFonts.lato(
                               textStyle: TextStyle(
                                   fontSize: 15, color: Colors.grey[400])),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
@@ -283,13 +283,13 @@ class _BookDisplayState extends State<BookDisplay> {
                                           fontSize: 15,
                                           color: Colors.grey[400])),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   rating == 'null' ? 'Not available' : rating,
                                   style: GoogleFonts.lato(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
                                           color: Colors.white)),
@@ -305,13 +305,11 @@ class _BookDisplayState extends State<BookDisplay> {
                                           fontSize: 15,
                                           color: Colors.grey[400])),
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                ),
+                                const SizedBox(height: 5),
                                 Text(
                                   pagecount,
                                   style: GoogleFonts.lato(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
                                           color: Colors.white)),
@@ -327,13 +325,13 @@ class _BookDisplayState extends State<BookDisplay> {
                                           fontSize: 15,
                                           color: Colors.grey[400])),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
                                   lang,
                                   style: GoogleFonts.lato(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 15,
                                           color: Colors.white)),
@@ -349,13 +347,11 @@ class _BookDisplayState extends State<BookDisplay> {
                                           fontSize: 15,
                                           color: Colors.grey[400])),
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                ),
+                                const SizedBox(height: 5),
                                 Text(
                                   pubdate.toUpperCase(),
                                   style: GoogleFonts.lato(
-                                      textStyle: TextStyle(
+                                      textStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
                                           color: Colors.white)),
@@ -371,7 +367,7 @@ class _BookDisplayState extends State<BookDisplay> {
             Expanded(
                 flex: 2,
                 child: Container(
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: const BoxDecoration(color: Colors.white),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -390,9 +386,7 @@ class _BookDisplayState extends State<BookDisplay> {
                                 fontSize: 25,
                               )),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
                             Text(
                               desc,
                               textAlign: TextAlign.justify,

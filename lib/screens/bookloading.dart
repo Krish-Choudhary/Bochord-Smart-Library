@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable
+// ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -6,8 +6,8 @@ import 'package:http/http.dart';
 import 'package:library_app/screens/bookdisplay.dart';
 
 class BookLoading extends StatefulWidget {
-  dynamic c;
-  BookLoading({
+  final dynamic c;
+  const BookLoading({
     super.key,
     required this.c,
   });

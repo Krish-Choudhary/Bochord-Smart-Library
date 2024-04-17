@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:library_app/screens/bookloading.dart';
@@ -40,7 +38,7 @@ class _SearchFilterState extends State<SearchFilter> {
       count++;
       ans = ans + s[i];
     }
-    return ans + "...";
+    return "$ans...";
   }
 
   @override
@@ -54,8 +52,8 @@ class _SearchFilterState extends State<SearchFilter> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 1, 42, 192),
-        title: Text(
+        backgroundColor: const Color.fromARGB(255, 1, 42, 192),
+        title: const Text(
           "RESULT",
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
@@ -64,7 +62,7 @@ class _SearchFilterState extends State<SearchFilter> {
           onTap: () {
             Navigator.of(context).pop();
           },
-          child: Icon(
+          child: const Icon(
             Icons.arrow_back,
             color: Colors.white,
           ),
@@ -77,13 +75,13 @@ class _SearchFilterState extends State<SearchFilter> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
               child: (Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 height: 270,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 1, 42, 192),
-                    image: DecorationImage(
+                    color: const Color.fromARGB(255, 1, 42, 192),
+                    image: const DecorationImage(
                         opacity: 0.4,
                         image: AssetImage("assets/images/overlay.png"),
                         fit: BoxFit.cover)),
@@ -102,13 +100,13 @@ class _SearchFilterState extends State<SearchFilter> {
                                 fit: BoxFit.cover)),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 25,
                         ),
                         Flexible(
@@ -123,25 +121,21 @@ class _SearchFilterState extends State<SearchFilter> {
                                     ["title"],
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.lato(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold)),
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Flexible(
                           child: Text(
                             (widget.d["items"][index + 1]["volumeInfo"]
                                             ["authors"][0])
                                         .length >
                                     18
-                                ? "by " +
-                                    st(widget.d["items"][index + 1]
-                                        ["volumeInfo"]["authors"][0])
-                                : "by " +
-                                    widget.d["items"][index + 1]["volumeInfo"]
-                                        ["authors"][0],
+                                ? "by ${st(widget.d["items"][index + 1]["volumeInfo"]["authors"][0])}"
+                                : "by ${widget.d["items"][index + 1]["volumeInfo"]["authors"][0]}",
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.lato(
                                 textStyle: TextStyle(
@@ -150,21 +144,18 @@ class _SearchFilterState extends State<SearchFilter> {
                                     fontWeight: FontWeight.bold)),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "Page Count:- " +
-                              (widget.d["items"][index + 1]["volumeInfo"]
-                                      ["pageCount"]
-                                  .toString()),
+                          "Page Count:- ${widget.d["items"][index + 1]["volumeInfo"]["pageCount"]}",
                           style: GoogleFonts.lato(
                               textStyle: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
@@ -179,7 +170,7 @@ class _SearchFilterState extends State<SearchFilter> {
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold)),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         ElevatedButton(
@@ -196,7 +187,7 @@ class _SearchFilterState extends State<SearchFilter> {
                             backgroundColor: Colors.white,
                           ),
                           // color: Colors.black,
-                          child: Text(
+                          child: const Text(
                             "DETAILS",
                             style: TextStyle(
                                 color: Color.fromARGB(255, 1, 42, 192),
