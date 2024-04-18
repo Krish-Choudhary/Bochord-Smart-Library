@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/model/library_book.dart';
 import 'package:library_app/screens/contact.dart';
 import 'package:library_app/widgets/home_screen.dart';
+import 'package:library_app/widgets/library.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -27,6 +29,19 @@ class _LibraryHomeState extends State<LibraryHome> {
           children: [
             const SizedBox(height: 12),
             if (selectedPageIndex == 0) const HomeScreen(),
+            if (selectedPageIndex == 1)
+              Library(
+                books: [
+                  LibraryBook(
+                    author: 'Krish Choudhary',
+                    availabilityDate: DateTime.utc(2024, 4, 30),
+                    isAvailable: false,
+                    thumbnail:
+                        'https://firebasestorage.googleapis.com/v0/b/library-app-2485f.appspot.com/o/leetcode50.png?alt=media&token=8a707fd3-9852-4bf2-956a-78a92d8534d5',
+                    title: "Book Title",
+                  ),
+                ],
+              ),
           ],
         ),
       ),
