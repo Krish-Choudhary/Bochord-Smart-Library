@@ -1,3 +1,7 @@
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat.yMd();
+
 class LibraryBook {
   LibraryBook({
     required this.author,
@@ -12,4 +16,8 @@ class LibraryBook {
   final String author;
   final bool isAvailable;
   final DateTime availabilityDate;
+
+  String get formattedDate {
+    return formatter.format(availabilityDate);
+  }
 }
