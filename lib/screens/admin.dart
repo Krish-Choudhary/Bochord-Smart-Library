@@ -60,8 +60,11 @@ class _AdminState extends State<Admin> {
         ));
       }
     }
+    _form.currentState!.reset();
     setState(() {
       _sendingData = false;
+      _selectedDate = null;
+      _selectedImage = null;
     });
   }
 
