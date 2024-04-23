@@ -44,13 +44,6 @@ class _AdminState extends State<Admin> {
           .collection('books')
           .doc('${bookName}_${DateTime.now()}')
           .set(bookData);
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Book Uploaded'),
-          duration: Duration(seconds: 2),
-        ));
-      }
     } catch (error) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -66,6 +59,13 @@ class _AdminState extends State<Admin> {
       _selectedDate = null;
       _selectedImage = null;
     });
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Book Uploaded'),
+        duration: Duration(seconds: 2),
+      ));
+    }
   }
 
   void _saveBook() {
