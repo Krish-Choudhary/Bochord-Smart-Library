@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/model/library_book.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Admin extends StatefulWidget {
   const Admin({super.key});
@@ -18,6 +19,7 @@ class Admin extends StatefulWidget {
 class _AdminState extends State<Admin> {
   final _form = GlobalKey<FormState>();
   String bookName = '';
+  bool _sendingData = false;
   String authorName = '';
   bool isAvailable = true;
   DateTime? _selectedDate;
@@ -28,9 +30,27 @@ class _AdminState extends State<Admin> {
       final storageRef = FirebaseStorage.instance
           .ref()
           .child('cover_pages')
-          .child('${bookName}_$authorName.jpg');
+          .child('${bookName}_${DateTime.now()}.jpg');
       await storageRef.putFile(_selectedImage!);
       final imageUrl = await storageRef.getDownloadURL();
+      final Map<String, dynamic> bookData = {
+        'Book name': bookName,
+        'Author name': authorName,
+        'Availability': isAvailable,
+        'Availability date': _selectedDate,
+        'Cover page': imageUrl,
+      };
+      await FirebaseFirestore.instance
+          .collection('books')
+          .doc('${bookName}_${DateTime.now()}')
+          .set(bookData);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Book Uploaded'),
+          duration: Duration(seconds: 2),
+        ));
+      }
     } catch (error) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
@@ -40,6 +60,9 @@ class _AdminState extends State<Admin> {
         ));
       }
     }
+    setState(() {
+      _sendingData = false;
+    });
   }
 
   void _saveBook() {
@@ -64,6 +87,9 @@ class _AdminState extends State<Admin> {
       return;
     }
     _form.currentState!.save();
+    setState(() {
+      _sendingData = true;
+    });
     _uploadBook();
   }
 
@@ -298,8 +324,10 @@ class _AdminState extends State<Admin> {
                     const SizedBox(height: 15),
                     Center(
                       child: ElevatedButton(
-                        onPressed: _saveBook,
-                        child: const Text('Add book'),
+                        onPressed: _sendingData ? null : _saveBook,
+                        child: _sendingData
+                            ? const CircularProgressIndicator()
+                            : const Text('Add book'),
                       ),
                     )
                   ],
