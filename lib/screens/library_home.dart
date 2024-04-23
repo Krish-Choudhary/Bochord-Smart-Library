@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/model/library_book.dart';
-import 'package:library_app/screens/admin.dart';
+import 'package:library_app/screens/admin_home.dart';
 import 'package:library_app/screens/contact.dart';
 import 'package:library_app/widgets/home_screen.dart';
 import 'package:library_app/widgets/library.dart';
@@ -54,7 +54,7 @@ class _LibraryHomeState extends State<LibraryHome> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return const Admin();
+                      return const AdminHome();
                     },
                   ),
                 );

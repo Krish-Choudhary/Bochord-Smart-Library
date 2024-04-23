@@ -7,16 +7,16 @@ import 'package:library_app/model/library_book.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Admin extends StatefulWidget {
-  const Admin({super.key});
+class AdminHome extends StatefulWidget {
+  const AdminHome({super.key});
 
   @override
-  State<Admin> createState() {
+  State<AdminHome> createState() {
     return _AdminState();
   }
 }
 
-class _AdminState extends State<Admin> {
+class _AdminState extends State<AdminHome> {
   final _form = GlobalKey<FormState>();
   String bookName = '';
   bool _sendingData = false;
