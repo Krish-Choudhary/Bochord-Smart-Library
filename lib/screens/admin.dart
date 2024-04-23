@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/model/library_book.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Admin extends StatefulWidget {
   const Admin({super.key});
@@ -20,7 +23,26 @@ class _AdminState extends State<Admin> {
   DateTime? _selectedDate;
   File? _selectedImage;
 
-  void _uploadBook() {
+  void _uploadBook() async {
+    try {
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('cover_pages')
+          .child('${bookName}_$authorName.jpg');
+      await storageRef.putFile(_selectedImage!);
+      final imageUrl = await storageRef.getDownloadURL();
+    } catch (error) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(error.toString()),
+          duration: const Duration(seconds: 2),
+        ));
+      }
+    }
+  }
+
+  void _saveBook() {
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
@@ -42,6 +64,7 @@ class _AdminState extends State<Admin> {
       return;
     }
     _form.currentState!.save();
+    _uploadBook();
   }
 
   void _selectPicture() async {
@@ -275,7 +298,7 @@ class _AdminState extends State<Admin> {
                     const SizedBox(height: 15),
                     Center(
                       child: ElevatedButton(
-                        onPressed: _uploadBook,
+                        onPressed: _saveBook,
                         child: const Text('Add book'),
                       ),
                     )
