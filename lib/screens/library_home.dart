@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:library_app/model/library_book.dart';
-import 'package:library_app/screens/admin_home.dart';
 import 'package:library_app/screens/admin_login.dart';
 import 'package:library_app/screens/contact.dart';
 import 'package:library_app/widgets/home_screen.dart';
 import 'package:library_app/widgets/library.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firebase = FirebaseAuth.instance;
+final _firestore = FirebaseFirestore.instance.collection('books');
 
 class LibraryHome extends StatefulWidget {
   const LibraryHome({super.key});
@@ -18,6 +19,20 @@ class LibraryHome extends StatefulWidget {
 
 class _LibraryHomeState extends State<LibraryHome> {
   int selectedPageIndex = 0;
+
+  List<LibraryBook> books = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchBooks();
+  }
+
+  Future<void> _fetchBooks() async {
+    final results = await _firestore.get();
+    books = results.docs.map((doc) => LibraryBook.fromFirestore(doc)).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,16 +93,7 @@ class _LibraryHomeState extends State<LibraryHome> {
             if (selectedPageIndex == 0) const HomeScreen(),
             if (selectedPageIndex == 1)
               Library(
-                books: [
-                  LibraryBook(
-                    author: 'Krish Choudhary',
-                    availabilityDate: DateTime.utc(2024, 4, 30),
-                    isAvailable: false,
-                    thumbnail:
-                        'https://firebasestorage.googleapis.com/v0/b/library-app-2485f.appspot.com/o/leetcode50.png?alt=media&token=8a707fd3-9852-4bf2-956a-78a92d8534d5',
-                    title: "Book Title",
-                  ),
-                ],
+                books: books,
               ),
           ],
         ),
