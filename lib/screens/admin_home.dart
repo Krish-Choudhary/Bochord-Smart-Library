@@ -53,12 +53,14 @@ class _AdminState extends State<AdminHome> {
         ));
       }
     }
-    _form.currentState!.reset();
     setState(() {
+      bookName = '';
+      authorName = '';
       _sendingData = false;
       _selectedDate = null;
       _selectedImage = null;
     });
+    _form.currentState!.reset();
     if (context.mounted) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
