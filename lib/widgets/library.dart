@@ -9,7 +9,17 @@ class Library extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [for (LibraryBook book in books) LibraryBookTile(book: book)],
+      children: [
+        const SizedBox(height: 15),
+        for (LibraryBook book in books)
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LibraryBookTile(book: book),
+              const SizedBox(height: 10),
+            ],
+          )
+      ],
     );
   }
 }

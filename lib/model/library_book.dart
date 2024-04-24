@@ -22,13 +22,14 @@ class LibraryBook {
     return formatter.format(availabilityDate!);
   }
 
-  factory LibraryBook.fromFirestore(DocumentSnapshot<Object?> doc) {
-    final data = doc.data() as Map<String, dynamic>;
+  factory LibraryBook.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>?> doc) {
+    final Map<String, dynamic>? data = doc.data();
     return LibraryBook(
-      author: data['Author name'] as String,
+      author: data!['Author name'] as String,
       title: data['Book name'] as String,
       isAvailable: data['Availability'] as bool,
-      availabilityDate: (data['Availability date'] as DateTime?),
+      availabilityDate: (data['Availability date'] as Timestamp).toDate(),
       thumbnail: data['Cover page'] as String,
     );
   }

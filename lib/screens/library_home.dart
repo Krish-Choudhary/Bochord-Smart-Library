@@ -91,10 +91,7 @@ class _LibraryHomeState extends State<LibraryHome> {
           children: [
             const SizedBox(height: 12),
             if (selectedPageIndex == 0) const HomeScreen(),
-            if (selectedPageIndex == 1)
-              Library(
-                books: books,
-              ),
+            if (selectedPageIndex == 1) Library(books: books),
           ],
         ),
       ),

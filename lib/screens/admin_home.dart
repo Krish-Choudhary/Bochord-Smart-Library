@@ -37,7 +37,7 @@ class _AdminState extends State<AdminHome> {
         'Book name': bookName,
         'Author name': authorName,
         'Availability': isAvailable,
-        'Availability date': _selectedDate,
+        'Availability date': isAvailable ? DateTime.now() : _selectedDate,
         'Cover page': imageUrl,
       };
       await FirebaseFirestore.instance
