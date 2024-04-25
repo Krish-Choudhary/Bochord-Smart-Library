@@ -7,19 +7,21 @@ class Library extends StatelessWidget {
   final List<LibraryBook> books;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const SizedBox(height: 15),
-        for (LibraryBook book in books)
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LibraryBookTile(book: book),
-              const SizedBox(height: 10),
-            ],
-          )
-      ],
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          const SizedBox(height: 15),
+          for (LibraryBook book in books)
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                LibraryBookTile(book: book),
+                const SizedBox(height: 10),
+              ],
+            )
+        ],
+      ),
     );
   }
 }
