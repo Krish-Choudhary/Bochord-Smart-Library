@@ -26,9 +26,9 @@ class _LibraryHomeState extends State<LibraryHome> {
 
   @override
   void initState() {
-    super.initState();
     getcategorydata();
     _fetchBooks();
+    super.initState();
   }
 
   Future<void> _fetchBooks() async {
