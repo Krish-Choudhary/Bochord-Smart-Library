@@ -1,62 +1,16 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:library_app/widgets/category_view.dart';
 import 'package:library_app/screens/search_loading.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.listOfBooks});
+  final List<Future<dynamic>> listOfBooks;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<dynamic> adventureBody;
-  late Future<dynamic> financeBody;
-  late Future<dynamic> romanceBody;
-  late Future<dynamic> fantasyBody;
-  late Future<dynamic> fictionBody;
-  late Future<dynamic> scienceBody;
-  late Future<dynamic> historyBody;
-
-  void getcategorydata() async {
-    final adventureUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:adventure&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final fantasyUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:fantasy&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final financeUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:finance&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final romanceUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:romance&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final fictionUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final scienceUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:science&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    final historyUrl = Uri.parse(
-        "https://www.googleapis.com/books/v1/volumes?q=subject:history&download=epub&orderBy=newest&key=AIzaSyAqxw3nnCxwNQXRmXb-ZFi8FTNyhz6kwGA");
-    adventureBody =
-        http.get(adventureUrl).then((response) => json.decode(response.body));
-    fantasyBody =
-        http.get(fantasyUrl).then((response) => json.decode(response.body));
-    financeBody =
-        http.get(financeUrl).then((response) => json.decode(response.body));
-    romanceBody =
-        http.get(romanceUrl).then((response) => json.decode(response.body));
-    fictionBody =
-        http.get(fictionUrl).then((response) => json.decode(response.body));
-    scienceBody =
-        http.get(scienceUrl).then((response) => json.decode(response.body));
-    historyBody =
-        http.get(historyUrl).then((response) => json.decode(response.body));
-  }
-
-  @override
-  void initState() {
-    getcategorydata();
-    super.initState();
-  }
-
   @override
   void dispose() {
     t.dispose();
@@ -107,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                    return SearchLoading(text: t.text);
+                      return SearchLoading(text: t.text);
                     }));
                   },
                   child: const Text(
@@ -121,13 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          CategoryView(apiResponse: scienceBody, title: 'Science'),
-          CategoryView(apiResponse: historyBody, title: 'History'),
-          CategoryView(apiResponse: financeBody, title: 'Finance'),
-          CategoryView(apiResponse: fictionBody, title: 'Fiction'),
-          CategoryView(apiResponse: adventureBody, title: 'Adventure'),
-          CategoryView(apiResponse: fantasyBody, title: 'Fantasy'),
-          CategoryView(apiResponse: romanceBody, title: 'Romance'),
+          CategoryView(apiResponse: widget.listOfBooks[0], title: 'Science'),
+          CategoryView(apiResponse: widget.listOfBooks[1], title: 'History'),
+          CategoryView(apiResponse: widget.listOfBooks[2], title: 'Finance'),
+          CategoryView(apiResponse: widget.listOfBooks[3], title: 'Fiction'),
+          CategoryView(apiResponse: widget.listOfBooks[4], title: 'Adventure'),
+          CategoryView(apiResponse: widget.listOfBooks[5], title: 'Fantasy'),
+          CategoryView(apiResponse: widget.listOfBooks[6], title: 'Romance'),
         ],
       ),
     );

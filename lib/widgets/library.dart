@@ -8,7 +8,6 @@ class Library extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
       child: Column(
         children: [
           const SizedBox(height: 15),
