@@ -18,6 +18,7 @@ class AdminHome extends StatefulWidget {
 
 class _AdminState extends State<AdminHome> {
   final _form = GlobalKey<FormState>();
+  final _form2 = GlobalKey<FormState>();
   String bookName = '';
   bool _sendingData = false;
   String authorName = '';
@@ -42,7 +43,7 @@ class _AdminState extends State<AdminHome> {
       };
       await FirebaseFirestore.instance
           .collection('books')
-          .doc('${bookName}_${DateTime.now()}')
+          .doc(bookName)
           .set(bookData);
     } catch (error) {
       if (context.mounted) {
@@ -198,6 +199,41 @@ class _AdminState extends State<AdminHome> {
     });
   }
 
+  int _selectedPageIndex = 0;
+  String _username = '';
+  bool issue = true;
+
+  void issueBook() async {
+    final isValid = _form2.currentState!.validate();
+    if (!isValid) return;
+    if (issue && _selectedDate == null) {
+      return;
+    }
+    setState(() {
+      _sendingData = true;
+    });
+    _form2.currentState!.save();
+    await FirebaseFirestore.instance
+        .collection('books')
+        .doc(bookName)
+        .update({'Availability': !issue});
+    if (issue) {
+      await FirebaseFirestore.instance
+          .collection('books')
+          .doc(bookName)
+          .update({'Availability date': _selectedDate});
+    }
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: issue ? const Text('Book issued') : const Text("Book returned"),
+      duration: const Duration(seconds: 2),
+    ));
+
+    setState(() {
+      _sendingData = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget dropDown = DropdownButtonFormField(
@@ -229,115 +265,275 @@ class _AdminState extends State<AdminHome> {
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Add book',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.supervised_user_circle),
+            label: 'Issue/Return book',
+          ),
+        ],
+        currentIndex: _selectedPageIndex,
+        onTap: (value) {
+          setState(() {
+            _selectedPageIndex = value;
+          });
+        },
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Card(
             margin: const EdgeInsets.all(20),
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: Form(
-                key: _form,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (_selectedImage != null)
-                      GestureDetector(
-                          onTap: _selectPicture,
-                          child: Image.file(
-                            _selectedImage!,
-                            fit: BoxFit.fitHeight,
-                            height: 200,
-                          )),
-                    if (_selectedImage == null)
-                      TextButton.icon(
-                        icon: const Icon(Icons.camera_alt),
-                        label: const Text("Take Picture"),
-                        onPressed: _selectPicture,
-                      ),
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: 'Book Name'),
-                      autocorrect: false,
-                      initialValue: bookName,
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Book name can\'t be null';
-                        }
-                        if (value.trim().length < 2) {
-                          return 'Book name is too short';
-                        }
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          bookName = newValue!;
-                        });
-                      },
-                    ),
-                    TextFormField(
-                      decoration:
-                          const InputDecoration(labelText: 'Author Name'),
-                      autocorrect: false,
-                      keyboardType: TextInputType.name,
-                      initialValue: authorName,
-                      textCapitalization: TextCapitalization.words,
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Author name can\'t be null';
-                        }
-                        if (value.trim().length < 4) {
-                          return 'Author name is too short';
-                        }
-                        return null;
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          authorName = newValue!;
-                        });
-                      },
-                    ),
-                    isAvailable
-                        ? Center(
-                            child: SizedBox(
-                              width: 150,
-                              child: dropDown,
+              child: _selectedPageIndex == 0
+                  ? Form(
+                      key: _form,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (_selectedImage != null)
+                            GestureDetector(
+                                onTap: _selectPicture,
+                                child: Image.file(
+                                  _selectedImage!,
+                                  fit: BoxFit.fitHeight,
+                                  height: 200,
+                                )),
+                          if (_selectedImage == null)
+                            TextButton.icon(
+                              icon: const Icon(Icons.camera_alt),
+                              label: const Text("Take Picture"),
+                              onPressed: _selectPicture,
                             ),
-                          )
-                        : Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Expanded(child: dropDown),
-                              const SizedBox(width: 25),
-                              _selectedDate == null
-                                  ? const Text(
-                                      'No date selected',
-                                      style: TextStyle(fontSize: 16),
-                                    )
-                                  : Text(
-                                      formatter.format(_selectedDate!),
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                              const SizedBox(width: 15),
-                              SizedBox(
-                                  width: 20,
-                                  child: GestureDetector(
-                                    onTap: _presentDatePicker,
-                                    child: const Icon(Icons.calendar_month),
-                                  )),
-                              const SizedBox(width: 15),
-                            ],
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'Book Name'),
+                            autocorrect: false,
+                            initialValue: bookName,
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Book name can\'t be null';
+                              }
+                              if (value.trim().length < 2) {
+                                return 'Book name is too short';
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              setState(() {
+                                bookName = newValue!;
+                              });
+                            },
                           ),
-                    const SizedBox(height: 15),
-                    Center(
-                      child: ElevatedButton(
-                        onPressed: _sendingData ? null : _saveBook,
-                        child: _sendingData
-                            ? const CircularProgressIndicator()
-                            : const Text('Add book'),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'Author Name'),
+                            autocorrect: false,
+                            keyboardType: TextInputType.name,
+                            initialValue: authorName,
+                            textCapitalization: TextCapitalization.words,
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Author name can\'t be null';
+                              }
+                              if (value.trim().length < 4) {
+                                return 'Author name is too short';
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              setState(() {
+                                authorName = newValue!;
+                              });
+                            },
+                          ),
+                          isAvailable
+                              ? Center(
+                                  child: SizedBox(
+                                    width: 150,
+                                    child: dropDown,
+                                  ),
+                                )
+                              : Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Expanded(child: dropDown),
+                                    const SizedBox(width: 25),
+                                    _selectedDate == null
+                                        ? const Text(
+                                            'No date selected',
+                                            style: TextStyle(fontSize: 16),
+                                          )
+                                        : Text(
+                                            formatter.format(_selectedDate!),
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                          ),
+                                    const SizedBox(width: 15),
+                                    SizedBox(
+                                        width: 20,
+                                        child: GestureDetector(
+                                          onTap: _presentDatePicker,
+                                          child:
+                                              const Icon(Icons.calendar_month),
+                                        )),
+                                    const SizedBox(width: 15),
+                                  ],
+                                ),
+                          const SizedBox(height: 15),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: _sendingData ? null : _saveBook,
+                              child: _sendingData
+                                  ? const CircularProgressIndicator()
+                                  : const Text('Add book'),
+                            ),
+                          ),
+                        ],
                       ),
                     )
-                  ],
-                ),
-              ),
+                  : Form(
+                      key: _form2,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'Book Name'),
+                            autocorrect: false,
+                            initialValue: bookName,
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Book name can\'t be null';
+                              }
+                              if (value.trim().length < 2) {
+                                return 'Book name is too short';
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              setState(() {
+                                bookName = newValue!;
+                              });
+                            },
+                          ),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'Username'),
+                            autocorrect: false,
+                            initialValue: _username,
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Username can\'t be null';
+                              }
+                              if (value.trim().length < 2) {
+                                return 'Username is too short';
+                              }
+                              return null;
+                            },
+                            onSaved: (newValue) {
+                              setState(() {
+                                _username = newValue!;
+                              });
+                            },
+                          ),
+                          if (!issue)
+                            DropdownButtonFormField(
+                              items: const [
+                                DropdownMenuItem(
+                                    value: true,
+                                    child: Text(
+                                      'Issue',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Color.fromARGB(255, 15, 144, 19)),
+                                    )),
+                                DropdownMenuItem(
+                                    value: false,
+                                    child: Text(
+                                      'Return',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color:
+                                              Color.fromARGB(255, 114, 19, 12)),
+                                    )),
+                              ],
+                              value: issue,
+                              onChanged: (value) {
+                                setState(() {
+                                  issue = value!;
+                                });
+                              },
+                            ),
+                          if (issue)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: DropdownButtonFormField(
+                                    items: const [
+                                      DropdownMenuItem(
+                                          value: true,
+                                          child: Text(
+                                            'Issue',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 15, 144, 19)),
+                                          )),
+                                      DropdownMenuItem(
+                                          value: false,
+                                          child: Text(
+                                            'Return',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 114, 19, 12)),
+                                          )),
+                                    ],
+                                    value: issue,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        issue = value!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 25),
+                                _selectedDate == null
+                                    ? const Text(
+                                        'No date selected',
+                                        style: TextStyle(fontSize: 16),
+                                      )
+                                    : Text(
+                                        formatter.format(_selectedDate!),
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                const SizedBox(width: 15),
+                                SizedBox(
+                                    width: 20,
+                                    child: GestureDetector(
+                                      onTap: _presentDatePicker,
+                                      child: const Icon(Icons.calendar_month),
+                                    )),
+                                const SizedBox(width: 15),
+                              ],
+                            ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: _sendingData ? null : issueBook,
+                            child: _sendingData
+                                ? const CircularProgressIndicator()
+                                : const Text('Submit'),
+                          ),
+                        ],
+                      ),
+                    ),
             ),
           ),
         ),
