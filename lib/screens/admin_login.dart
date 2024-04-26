@@ -14,6 +14,7 @@ class AdminLogin extends StatefulWidget {
 }
 
 class _AdminLoginState extends State<AdminLogin> {
+  bool _isSending = false;
   String _userName = '';
   String _password = '';
   final _form = GlobalKey<FormState>();
@@ -22,6 +23,9 @@ class _AdminLoginState extends State<AdminLogin> {
     final isValid = _form.currentState!.validate();
     if (!isValid) return;
     _form.currentState!.save();
+    setState(() {
+      _isSending = true;
+    });
     _form.currentState!.reset();
     final cred = await FirebaseFirestore.instance
         .collection('Admin')
@@ -41,6 +45,9 @@ class _AdminLoginState extends State<AdminLogin> {
     } else {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).clearSnackBars();
+      setState(() {
+        _isSending = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text(
           'Incorrect username and password',
@@ -62,62 +69,75 @@ class _AdminLoginState extends State<AdminLogin> {
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      body: Card(
-        child: Form(
-          key: _form,
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Username'),
-                autocorrect: false,
-                enableSuggestions: false,
-                initialValue: '',
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null) {
-                    return 'Username can\'t be null';
-                  } else if (value.trim().isEmpty) {
-                    return 'Enter username';
-                  } else if (value.trim().length < 4) {
-                    return 'Username is atleast 4 characters long';
-                  }
-                  return null;
-                },
-                onSaved: (newValue) {
-                  setState(() {
-                    _userName = newValue!;
-                  });
-                },
+      body: Center(
+        child: SingleChildScrollView(
+          child: Card(
+            margin: const EdgeInsets.all(15),
+            child: Form(
+              key: _form,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: TextFormField(
+                      decoration: const InputDecoration(labelText: 'Username'),
+                      autocorrect: false,
+                      enableSuggestions: false,
+                      initialValue: '',
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Username can\'t be null';
+                        } else if (value.trim().isEmpty) {
+                          return 'Enter username';
+                        } else if (value.trim().length < 4) {
+                          return 'Username is atleast 4 characters long';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        setState(() {
+                          _userName = newValue!;
+                        });
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(labelText: 'Password'),
+                      autocorrect: false,
+                      enableSuggestions: false,
+                      initialValue: '',
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Password can\'t be null';
+                        } else if (value.trim().isEmpty) {
+                          return 'Enter password';
+                        } else if (value.trim().length < 5) {
+                          return 'Password is atleast 5 characters long';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) {
+                        setState(() {
+                          _password = newValue!;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  ElevatedButton(
+                    onPressed: _isSending ? null : _login,
+                    child: _isSending
+                        ? const CircularProgressIndicator()
+                        : const Text('Login'),
+                  ),
+                ],
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Password'),
-                autocorrect: false,
-                enableSuggestions: false,
-                initialValue: '',
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                validator: (value) {
-                  if (value == null) {
-                    return 'Password can\'t be null';
-                  } else if (value.trim().isEmpty) {
-                    return 'Enter password';
-                  } else if (value.trim().length < 5) {
-                    return 'Password is atleast 5 characters long';
-                  }
-                  return null;
-                },
-                onSaved: (newValue) {
-                  setState(() {
-                    _password = newValue!;
-                  });
-                },
-              ),
-              const SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text('Login'),
-              ),
-            ],
+            ),
           ),
         ),
       ),
