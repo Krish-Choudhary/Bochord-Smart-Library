@@ -31,7 +31,8 @@ class _ChatBotState extends State<ChatBot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat Bot'),foregroundColor: Colors.white,
+        title: const Text('Chat Bot'),
+        foregroundColor: Colors.white,
         backgroundColor: Colors.blue.shade800,
       ),
       body: Container(
@@ -66,7 +67,8 @@ class _ChatBotState extends State<ChatBot> {
                         _controller.clear();
                       }
                     },
-                    icon: const Icon(Icons.send, color: Color.fromARGB(255, 45, 66, 77)),
+                    icon: const Icon(Icons.send,
+                        color: Color.fromARGB(255, 45, 66, 77)),
                   )
                 ],
               ),

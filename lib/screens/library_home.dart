@@ -99,20 +99,13 @@ class _LibraryHomeState extends State<LibraryHome> {
             )),
       ),
       appBar: AppBar(
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blue.shade800,
         title: const Text('Home'),
       ),
       drawer: Drawer(
         child: ListView(
-          // mainAxisSize: MainAxisSize.max,
           children: [
-            // DrawerHeader(
-            //   decoration: BoxDecoration(
-            //     color: Theme.of(context).colorScheme.surface,
-            //   ),
-            //   child: Image.asset('assets/images/Iiit-una-logo.png'),
-            // ),
             const SizedBox(height: 30),
             ListTile(
               leading: const Icon(Icons.perm_contact_calendar),
@@ -186,10 +179,6 @@ class _LibraryHomeState extends State<LibraryHome> {
             icon: Icon(Icons.local_library_sharp),
             label: 'Library',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.supervised_user_circle),
-          //   label: 'My Profile',
-          // ),
         ],
       ),
     );

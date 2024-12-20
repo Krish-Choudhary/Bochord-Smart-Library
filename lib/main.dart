@@ -20,7 +20,7 @@ class App extends StatelessWidget {
       title: 'Library',
       theme: ThemeData().copyWith(
         colorScheme: ColorScheme.fromSeed(
-          seedColor:const Color.fromARGB(255, 232, 148, 4),
+          seedColor: Colors.blue,
         ),
       ),
       home: StreamBuilder(
