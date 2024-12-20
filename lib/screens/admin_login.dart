@@ -66,21 +66,33 @@ class _AdminLoginState extends State<AdminLogin> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Login'),
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor:
+            Theme.of(context).colorScheme.primary, // Use theme colors
       ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Card(
             margin: const EdgeInsets.all(15),
+            elevation: 5.0, // Add some shadow for depth
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0), // Rounded corners
+            ),
             child: Form(
               key: _form,
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding:
+                        const EdgeInsets.only(top: 20.0, left: 18, right: 18),
                     child: TextFormField(
-                      decoration: const InputDecoration(labelText: 'Username'),
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(10.0), // Match card corners
+                        ),
+                      ),
                       autocorrect: false,
                       enableSuggestions: false,
                       initialValue: '',
@@ -103,9 +115,16 @@ class _AdminLoginState extends State<AdminLogin> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 18),
                     child: TextFormField(
-                      decoration: const InputDecoration(labelText: 'Password'),
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(10.0), // Match card corners
+                        ),
+                      ),
                       autocorrect: false,
                       enableSuggestions: false,
                       initialValue: '',
@@ -131,10 +150,18 @@ class _AdminLoginState extends State<AdminLogin> {
                   const SizedBox(height: 15),
                   ElevatedButton(
                     onPressed: _isSending ? null : _login,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
                     child: _isSending
                         ? const CircularProgressIndicator()
                         : const Text('Login'),
                   ),
+                  SizedBox(height: 10)
                 ],
               ),
             ),
