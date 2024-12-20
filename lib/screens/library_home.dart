@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:library_app/model/library_book.dart';
 import 'package:library_app/screens/admin_login.dart';
 import 'package:library_app/screens/contact.dart';
-import 'package:library_app/widgets/chat_bot.dart';
+import 'package:library_app/screens/chatbot_screen.dart';
 import 'package:library_app/widgets/home_screen.dart';
 import 'package:library_app/widgets/library.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
