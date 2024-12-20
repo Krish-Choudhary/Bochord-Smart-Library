@@ -50,88 +50,107 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 177, 156, 91),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 30,
-                  left: 20,
-                  right: 20,
-                  bottom: 20,
-                ),
-                width: 150,
-                child: Image.asset('assets/images/Iiit-una-logo.png'),
+      appBar: AppBar(
+        title: const Text('IIIT Una Login'),
+        centerTitle: true,
+        backgroundColor: Colors.amber.shade700,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 30.0),
+            Hero(
+              tag: 'appLogo',
+              child: Image.asset(
+                'assets/images/Iiit-una-logo.png',
+                width: 150.0,
               ),
-              Card(
-                margin: const EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Form(
-                    key: _form,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextFormField(
-                          decoration:
-                              const InputDecoration(labelText: 'E-mail Id'),
-                          autocorrect: false,
-                          keyboardType: TextInputType.emailAddress,
-                          textCapitalization: TextCapitalization.none,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Enter E-mail address';
-                            }
-                            if (!value.contains('@')) {
-                              return 'Invalid e-mail address';
-                            }
-                            if (!value.contains('@iiitu.ac.in')) {
-                              return 'Enter IIITU\'s email address';
-                            }
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            _enteredEmail = newValue!;
-                          },
-                        ),
-                        TextFormField(
-                          decoration:
-                              const InputDecoration(labelText: 'Password'),
-                          autocorrect: false,
-                          textCapitalization: TextCapitalization.none,
-                          obscureText: true,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Invalid password';
-                            }
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            _enteredPassword = newValue!;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _login,
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber.withAlpha(102)),
-                          child: _isAuthenticating
-                              ? const CircularProgressIndicator()
-                              : const Text(
-                                  "Login",
-                                ),
-                        ),
-                        const SizedBox(height: 10),
-                      ],
+            ),
+            const SizedBox(height: 40.0),
+            Form(
+              key: _form,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'E-mail Id',
+                      prefixIcon: const Icon(Icons.email),
+                      border: OutlineInputBorder(
+                        // Added border
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        // Customize focused border
+                        borderSide: BorderSide(
+                            color: Colors.amber.shade700, width: 2.0),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    textCapitalization: TextCapitalization.none,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Enter E-mail address';
+                      }
+                      if (!value.contains('@')) {
+                        return 'Invalid e-mail address';
+                      }
+                      if (!value.contains('@iiitu.ac.in')) {
+                        return 'Enter IIITU\'s email address';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      _enteredEmail = newValue!;
+                    },
                   ),
-                ),
+                  const SizedBox(height: 15.0),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: const Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                        // Added border
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        // Customize focused border
+                        borderSide: BorderSide(
+                            color: Colors.amber.shade700, width: 2.0),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    autocorrect: false,
+                    textCapitalization: TextCapitalization.none,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Invalid password';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) {
+                      _enteredPassword = newValue!;
+                    },
+                  ),
+                  const SizedBox(height: 20.0),
+                  ElevatedButton(
+                    onPressed: _login,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amber.shade700,
+                      minimumSize: const Size(double.infinity, 50.0),
+                    ),
+                    child: _isAuthenticating
+                        ? const CircularProgressIndicator()
+                        : const Text('Login'),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
