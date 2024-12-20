@@ -117,7 +117,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ElevatedButton(
                           onPressed: _login,
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.amber.withOpacity(0.4)),
+                              backgroundColor: Colors.amber.withAlpha(102)),
                           child: _isAuthenticating
                               ? const CircularProgressIndicator()
                               : const Text(

@@ -152,7 +152,7 @@ class _BookDisplayState extends State<BookDisplay> {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor:
-                const Color.fromARGB(255, 1, 42, 192).withOpacity(0.8),
+                const Color.fromARGB(255, 1, 42, 192).withAlpha(204),
           ),
           onPressed: () async {
             await launchUrl(

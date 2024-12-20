@@ -119,7 +119,7 @@ class _AdminState extends State<AdminHome> {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(0.7),
+                          .withAlpha(178),
                       size: 100,
                     ),
                     onTap: () {
@@ -148,7 +148,7 @@ class _AdminState extends State<AdminHome> {
                       color: Theme.of(context)
                           .colorScheme
                           .primary
-                          .withOpacity(0.7),
+                          .withAlpha(178),
                       size: 100,
                     ),
                     onTap: () {

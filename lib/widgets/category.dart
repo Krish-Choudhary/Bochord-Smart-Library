@@ -51,7 +51,7 @@ class Category extends StatelessWidget {
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
+                                color: Colors.grey.withAlpha(128),
                                 spreadRadius: 3,
                                 blurRadius: 8,
                                 offset: const Offset(2, 2))
