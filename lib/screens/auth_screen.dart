@@ -51,9 +51,12 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('IIIT Una Login'),
+        title: const Text(
+          'IIIT Una Login',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        backgroundColor: Colors.amber.shade700,
+        backgroundColor: Colors.blue.shade700,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -83,8 +86,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         // Customize focused border
-                        borderSide: BorderSide(
-                            color: Colors.amber.shade700, width: 2.0),
+                        borderSide:
+                            BorderSide(color: Colors.blue.shade700, width: 2.0),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -118,8 +121,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         // Customize focused border
-                        borderSide: BorderSide(
-                            color: Colors.amber.shade700, width: 2.0),
+                        borderSide:
+                            BorderSide(color: Colors.blue.shade700, width: 2.0),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -140,12 +143,15 @@ class _AuthScreenState extends State<AuthScreen> {
                   ElevatedButton(
                     onPressed: _login,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber.shade700,
+                      backgroundColor: Colors.blue.shade700,
                       minimumSize: const Size(double.infinity, 50.0),
                     ),
                     child: _isAuthenticating
-                        ? const CircularProgressIndicator()
-                        : const Text('Login'),
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white),
+                          ),
                   ),
                 ],
               ),

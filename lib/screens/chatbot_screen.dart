@@ -31,33 +31,48 @@ class _ChatBotState extends State<ChatBot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat bot'),
+        title: const Text('Chat Bot'),foregroundColor: Colors.white,
+        backgroundColor: Colors.blue.shade800,
       ),
-      body: Column(
-        children: [
-          Expanded(child: MessagesScreen(messages: messages)),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            color: const Color.fromARGB(255, 230, 222, 222),
-            child: Row(
-              children: [
-                Expanded(
+      body: Container(
+        color: Colors.grey.shade200, // Set background color
+        child: Column(
+          children: [
+            Expanded(child: MessagesScreen(messages: messages)),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              decoration: BoxDecoration(
+                color: Colors.white, // Set message input area background
+                borderRadius:
+                    BorderRadius.circular(20.0), // Add rounded corners
+              ),
+              child: Row(
+                children: [
+                  Expanded(
                     child: TextField(
-                  controller: _controller,
-                  style: const TextStyle(color: Colors.black),
-                )),
-                IconButton(
+                      controller: _controller,
+                      style: const TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        hintText: 'Type your message...',
+                        border: InputBorder.none, // Remove default border
+                      ),
+                    ),
+                  ),
+                  IconButton(
                     onPressed: () {
                       if (_controller.text.isNotEmpty) {
                         sendMessage(_controller.text);
                         _controller.clear();
                       }
                     },
-                    icon: const Icon(Icons.send))
-              ],
+                    icon: const Icon(Icons.send, color: Color.fromARGB(255, 45, 66, 77)),
+                  )
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
